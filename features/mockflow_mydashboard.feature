@@ -16,11 +16,11 @@ Feature: Check if i can create my first Workspace
     Then My new workspace is created
 
 
-#  @T5   @positiveTesting
-#  Scenario: I am in my new Workspace and i want to close the DesignSpace Tour
-#    When I see the DesignSpace tour overlay
-#    When I close the DesignSpace tour
-#    Then The DesignSpace tour should be closed
+  @T5   @positiveTesting
+  Scenario: I am in my new Workspace and i want to close the DesignSpace Tour
+    When I see the DesignSpace tour overlay
+    When I close the DesignSpace tour
+    Then The DesignSpace tour should be closed
 
 
   @T6   @positiveTesting
@@ -29,3 +29,15 @@ Feature: Check if i can create my first Workspace
     When I insert my Wireframe name
     When I search for my desired UI pack and i select it
     Then My Wireframe is created
+
+
+  @T7  @positiveTesting
+  Scenario: I am in my new Workspace and i want to rename my Wireframe
+    When I select from space settings the option Rename
+    When I put the new name
+    When I confirm the rename
+    Then My Wireframe is renamed
+
+
+
+

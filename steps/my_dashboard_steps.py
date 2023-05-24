@@ -78,3 +78,23 @@ def step_impl(context):
 @then("My Wireframe is created")
 def step_impl(context):
     context.my_dashboard.my_new_wireframe()
+
+
+@when("I select from space settings the option Rename")
+def step_impl(context):
+    context.my_dashboard.settings_in_wireframe()
+
+
+@when("I put the new name")
+def step_impl(context):
+    context.my_dashboard.rename_name()
+
+
+@when("I confirm the rename")
+def step_impl(context):
+    context.my_dashboard.confirm_rename()
+
+
+@then("My Wireframe is renamed")
+def step_impl(context):
+    context.my_dashboard.check_the_rename()

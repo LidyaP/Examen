@@ -22,22 +22,22 @@ class Home_page(Browser):
     def insert_password(self):
         user_password = self.chrome.find_element(By.ID, "logpassword")
         user_password.send_keys("Ianuarie_01")
-        sleep(2)
+        sleep(1)
 
     def insert_invalid_password(self):
         user_password = self.chrome.find_element(By.ID, "logpassword")
         user_password.send_keys("alabalaportocala")
-        sleep(2)
+        sleep(1)
 
     def click_singin_button(self):
         singin_button = self.chrome.find_element(By.ID, "login_btn")
         singin_button.click()
-        sleep(2)
+        sleep(1)
 
     def my_account_page(self):
         account_url = "https://wireframepro.mockflow.com/"
         assert self.chrome.current_url == account_url
-        sleep(2)
+        sleep(1)
 
     def login_failed(self):  # Folosesc metoda switch_to.alert pentru a interacționa cu fereastra de alertă și a confirma sau a închide mesajul de eroare.
         try:
@@ -47,4 +47,4 @@ class Home_page(Browser):
             alerta.accept()   # accept alerta
         except NoAlertPresentException:
             assert False, "Expected alert not found"
-        sleep(2)
+        sleep(1)
