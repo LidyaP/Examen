@@ -81,13 +81,15 @@ class My_dashboard(Browser):
 
     def ui_pack(self):
         ui = self.chrome.find_element(By.ID, "mfSearchCategoryInput")
-        bank_pack = self.chrome.find_element((By.ID, "mfComponentCategoryItem_Dbef2366b7e258e64d1a41a8af8496ec6"))
+        bank_pack = self.chrome.find_element(By.ID, "mfComponentCategoryItem_Dbef2366b7e258e64d1a41a8af8496ec6")
         ui.send_keys("Bank UI pack")
         bank_pack.click()
         sleep(1)
 
     def my_new_wireframe(self):
+        new_tab = self.chrome.window_handles
+        self.chrome.switch_to.window(new_tab[-1])
         current_url = self.chrome.current_url
         partial_url = "https://wireframepro.mockflow.com/editor.jsp?editor=on&publicid="
-        assert re.search(partial_url, current_url), f"the current url {current_url} does not contain {partial_url} "
+        assert partial_url in current_url, f"the current url {current_url} does not contain {partial_url} "
         # folosim functia re (expresie regulată (regex)) pt a putea face assert cu url partial

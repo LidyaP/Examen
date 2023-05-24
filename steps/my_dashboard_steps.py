@@ -75,6 +75,6 @@ def step_impl(context):
     context.my_dashboard.ui_pack()
 
 
-@when("My Wireframe is created")
+@then("My Wireframe is created")
 def step_impl(context):
     context.my_dashboard.my_new_wireframe()
