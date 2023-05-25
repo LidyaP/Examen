@@ -80,6 +80,26 @@ def step_impl(context):
     context.my_dashboard.my_new_wireframe()
 
 
+@when("From navigation bar i click on store icon")
+def step_impl(context):
+    context.my_dashboard.store_icon()
+
+
+@when("I am in store and i click on Templates bar")
+def step_impl(context):
+    context.my_dashboard.template_tab()
+
+
+@when("I click on the desired template and import it")
+def step_impl(context):
+    context.my_dashboard.marketing_pack_email()
+
+
+@then("I can save my customized Wireframe")
+def step_impl(context):
+    context.my_dashboard.save_changes()
+
+
 @when("I select from space settings the option Rename")
 def step_impl(context):
     context.my_dashboard.settings_in_wireframe()
