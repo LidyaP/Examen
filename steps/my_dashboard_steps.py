@@ -118,3 +118,43 @@ def step_impl(context):
 @then("My Wireframe is renamed")
 def step_impl(context):
     context.my_dashboard.check_the_rename()
+
+
+@when("I click my Space analytic button")
+def step_impl(context):
+    context.my_dashboard.space_analytics()
+
+
+@when("I receive the message that my Workspace must be upgraded to have access to Space analytics")
+def step_impl(context):
+    context.my_dashboard.analytics_message()
+
+
+@when("I click back button")
+def step_impl(context):
+    context.my_dashboard.click_back_button()
+
+
+@then("I am back in my Workspace space")
+def step_impl(context):
+    context.my_dashboard.back_in_my_workspace()
+
+
+@when("I am on my Workspace i click the back button")
+def step_impl(context):
+    context.my_dashboard.escape_workspace()
+
+
+@when("I am on my home page")
+def step_impl(context):
+    context.my_dashboard.back_in_my_home_page()
+
+
+@when("I click settings and log out option")
+def step_impl(context):
+    context.my_dashboard.settings_and_log_out()
+
+
+@then("I am log out from my account")
+def step_impl(context):
+    context.my_dashboard.goodbye()

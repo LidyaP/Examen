@@ -1,5 +1,6 @@
 import string
 
+from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 from browser import Browser
 from time import sleep
@@ -37,6 +38,13 @@ class My_dashboard(Browser):
     RENAME = (By.ID, "mfRenameSpace")
     RENAME_NAME = (By.ID, "mfRenameSpaceInput")
     RENAME_BUTTON = (By.ID, "mfSpaceRenameBtn")
+    SPACE_ANALYTICS = (By.ID, "mfAnalyticsBtn")
+    TEXT = (By.CSS_SELECTOR, '.mfSpaceAnalyticsBasicUsersContent p')
+    CLICK_BACK = (By.XPATH, '//div[@class="mfSpaceAnalyticsBasicUsers"]/i[@class="mfSpaceAnalyticsCloseIcon mfFontIcon ico-right mfPtr"]')
+    BACK_BUTTON = (By.ID, "mfCloseSpaceBtn")
+    MY_ACCOUNT_SETTINGS = (By.ID, "mfAccountProfileImg")
+    LOG_OUT = (By.ID, "mfAccountMenuLogout")
+
 
     def i_see_the_offer(self):
         upgrade_offer = WebDriverWait(self.chrome, 10).until(EC.visibility_of_element_located(self.PROMO))
@@ -200,10 +208,10 @@ class My_dashboard(Browser):
             print(f"An error occurred while saving changes: {str(i)}")
 
     def settings_in_wireframe(self):
-        space_settings = WebDriverWait(self.chrome, 3).until(EC.presence_of_element_located(self.SPACE_SETTINGS))
+        space_settings = WebDriverWait(self.chrome, 10).until(EC.presence_of_element_located(self.SPACE_SETTINGS))
         if space_settings:
             space_settings.click()
-            rename_option = WebDriverWait(self.chrome, 3).until(EC.presence_of_element_located(self.RENAME))
+            rename_option = WebDriverWait(self.chrome, 10).until(EC.presence_of_element_located(self.RENAME))
             if rename_option:
                 rename_option.click()
                 sleep(1)
@@ -242,3 +250,78 @@ class My_dashboard(Browser):
                 print(f"Attempt {attempts + 1} failed. Error: {str(i)}")
                 attempts += 1
                 sleep(1)
+
+    def space_analytics(self):
+        try:
+            analytics = self.chrome.find_element(*self.SPACE_ANALYTICS)
+            analytics.click()
+            sleep(1)
+        except Exception as i:
+            print(f"An error occurred while i click the space analytics: {str(i)}")
+
+    def analytics_message(self):
+        text_element = self.chrome.find_element(*self.TEXT)
+        message = text_element.text
+        expected_text = "Space analytics is available"
+        try:
+            assert message == expected_text
+            print("Message text is correct: '{}'".format(message))
+        except AssertionError:
+            print("Message text is incorrect. Expected: '{}'. Actual: '{}'".format(expected_text, message))
+
+    def click_back_button(self):
+        try:
+            click_back = self.chrome.find_element(*self.CLICK_BACK)
+            click_back.click()
+            sleep(1)
+            print("Clicked on the back button")
+        except Exception as i:
+            print("Failed to click on the back button:", str(i))
+
+    def back_in_my_workspace(self):
+        current_url = self.chrome.current_url
+        partial_url = "https://wireframepro.mockflow.com/#/space/"
+        assert partial_url in current_url, f"the current url {current_url} does not contain {partial_url} "
+        sleep(1)
+
+    def escape_workspace(self):
+        try:
+            escape = self.chrome.find_element(*self.BACK_BUTTON)
+            escape.click()
+            sleep(1)
+            print("Clicked on the back button")
+        except Exception as i:
+            print("Failed to click on the back button:", str(i))
+
+    def back_in_my_home_page(self):
+        current_url = self.chrome.current_url.rstrip('/')   # Elimină caracterul '/' de la sfârșit, dacă există
+        expected = "https://wireframepro.mockflow.com"
+        assert expected == current_url, f"the current url {current_url} is not as expected {expected} "
+
+    def settings_and_log_out(self):
+        try:
+            settings = self.chrome.find_element(*self.MY_ACCOUNT_SETTINGS)
+            settings.click()
+            sleep(1)
+        except NoSuchElementException:
+            print("Settings item not found.")
+        try:
+            log_out = self.chrome.find_element(*self.LOG_OUT)
+            log_out.click()
+            sleep(1)
+        except NoSuchElementException:
+            print("Log out button was not found.")
+
+    def goodbye(self):
+        current_link = self.chrome.current_url.rstrip('/')
+        expected_link = "https://mockflow.com"
+        assert expected_link == current_link, f"the current url {current_link} is not as expected {expected_link} "
+
+
+
+
+
+
+
+
+

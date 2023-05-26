@@ -45,6 +45,19 @@ Feature: Check if i can create my first Workspace
     When I confirm the rename
     Then My Wireframe is renamed
 
+  @T9  @positiveTesting
+  Scenario: I am on my Workspace and i want view my Space analytics
+    When I click my Space analytic button
+    When I receive the message that my Workspace must be upgraded to have access to Space analytics
+    When I click back button
+    Then I am back in my Workspace space
 
+
+  @T10  @positiveTesting
+  Scenario:  I am on my Workspace and i want to go back to home page and log out
+    When I am on my Workspace i click the back button
+    When I am on my home page
+    When I click settings and log out option
+    Then I am log out from my account
 
 
