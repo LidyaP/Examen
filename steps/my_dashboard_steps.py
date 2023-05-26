@@ -7,7 +7,7 @@ def step_impl(context):
     context.home_page.click_login_button()
     context.home_page.insert_email()
     context.home_page.insert_password()
-    context.home_page.click_singin_button()
+    context.home_page.click_signin_button()
 
 
 @when("I see the upgrade offer modal")

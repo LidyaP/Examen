@@ -2,7 +2,7 @@ Feature: Check if i can create my first Workspace
 
   @T3  @positiveTesting
   Scenario: I want to close the offer for Upgrade Now
-#    Given I am logged into my account
+    Given I am logged into my account
     When I see the upgrade offer modal
     When I click on x button
     Then The offer doesn't appear anymore

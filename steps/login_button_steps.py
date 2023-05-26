@@ -38,7 +38,7 @@ def step_impl(context):
 
 @when("I click on Sing In")
 def step_impl(context):
-    context.home_page.click_singin_button()
+    context.home_page.click_signin_button()
 
 
 @then("I receive an error message")
