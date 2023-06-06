@@ -44,6 +44,10 @@ class My_dashboard(Browser):
     BACK_BUTTON = (By.ID, "mfCloseSpaceBtn")
     MY_ACCOUNT_SETTINGS = (By.ID, "mfAccountProfileImg")
     LOG_OUT = (By.ID, "mfAccountMenuLogout")
+    WORKPLACE_TEST1 = (By.XPATH, '//*[@class="mfDashCard mfDefaultSpace ui-sortable-handle"]//div[@class="mfDashCardLabel mfOverflowTip mfThemeColorTxt"]')
+    DELETE = (By.ID, "mfDeleteDash")
+    DELETE_SPACE = (By.ID, "mfDeleteSpacePass")
+    DELETE_BTN = (By.ID, "mfSpaceDeleteBtn")
 
     def i_see_the_offer(self):
         upgrade_offer = WebDriverWait(self.chrome, 10).until(EC.visibility_of_element_located(self.PROMO))
@@ -297,6 +301,58 @@ class My_dashboard(Browser):
         expected = "https://wireframepro.mockflow.com"
         assert expected == current_url, f"the current url {current_url} is not as expected {expected} "
 
+    def click_on_my_test1(self):
+        name_element = WebDriverWait(self.chrome, 10).until(EC.presence_of_element_located(self.WORKPLACE_TEST1))
+        the_name = name_element.text
+        expected_name = "Test1"
+        try:
+            assert the_name == expected_name
+            print("Message text is correct: '{}'".format(the_name))
+            name_element.click()
+            sleep(1)
+        except AssertionError:
+            print("Message text is incorrect. Expected: '{}'. Actual: '{}'".format(expected_name, the_name))
+
+    def settings_in_wireframe2(self):
+        space_settings = WebDriverWait(self.chrome, 10).until(EC.presence_of_element_located(self.SPACE_SETTINGS))
+        if space_settings:
+            space_settings.click()
+            delete_option = WebDriverWait(self.chrome, 10).until(EC.presence_of_element_located(self.DELETE))
+            if delete_option:
+                delete_option.click()
+                sleep(1)
+            else:
+                raise AssertionError("Delete option not found.")
+        else:
+            raise AssertionError("Space settings not found.")
+
+    def delete_message(self):
+        delete_message = self.chrome.find_element(*self.DELETE_SPACE)
+        delete_button = self.chrome.find_element(*self.DELETE_BTN)
+        delete1 = "delete"
+        while True:
+            try:
+               delete_message.send_keys(delete1)
+               delete_button.click()
+               alerta1 = self.chrome.switch_to.alert
+               alerta1.accept()
+               sleep(1)
+               break
+            except Exception as i:
+                print("Exception occurred: {}".format(str(i)))
+
+    def workplace_is_deleted(self):
+        maximum = 3
+        attempts = 0
+        while attempts < maximum:
+            try:
+                deleted = WebDriverWait(self.chrome, 10).until(EC.presence_of_element_located(self.WORKPLACE_TEST1))
+                assert not deleted.is_displayed()
+                break
+            except Exception as i:
+                print(f"Attempt {attempts + 1} failed. Error: {str(i)}")
+                attempts += 1
+
     def settings_and_log_out(self):
         try:
             settings = self.chrome.find_element(*self.MY_ACCOUNT_SETTINGS)
@@ -315,12 +371,3 @@ class My_dashboard(Browser):
         current_link = self.chrome.current_url.rstrip('/')
         expected_link = "https://mockflow.com"
         assert expected_link == current_link, f"the current url {current_link} is not as expected {expected_link} "
-
-
-
-
-
-
-
-
-

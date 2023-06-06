@@ -145,6 +145,23 @@ def step_impl(context):
     context.my_dashboard.escape_workspace()
 
 
+@when("I am on my dashboard home page and i click on my Test1 workplace")
+def step_impl(context):
+    context.my_dashboard.click_on_my_test1()
+
+
+@when("I click settings and chose the delete option")
+def step_impl(context):
+    context.my_dashboard.settings_in_wireframe2()
+    context.my_dashboard.delete_message()
+
+
+@then("I am redirected in my home_page and my workplace is deleted")
+def step_impl(context):
+    context.my_dashboard.back_in_my_home_page()
+    context.my_dashboard.workplace_is_deleted()
+
+
 @when("I am on my home page")
 def step_impl(context):
     context.my_dashboard.back_in_my_home_page()

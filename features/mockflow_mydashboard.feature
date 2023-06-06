@@ -52,10 +52,15 @@ Feature: Check if i can create my first Workspace
     When I click back button
     Then I am back in my Workspace space
 
-
   @T10  @positiveTesting
-  Scenario:  I am on my Workspace and i want to go back to home page and log out
+  Scenario: I am on my Workspace and i want to go back to home page and delete my Workplace to be able to create a new one in the future
     When I am on my Workspace i click the back button
+    When I am on my dashboard home page and i click on my Test1 workplace
+    When I click settings and chose the delete option
+    Then I am redirected in my home_page and my workplace is deleted
+
+  @T11  @positiveTesting
+  Scenario:  I am on my Workspace and i want to go back to home page and log out
     When I am on my home page
     When I click settings and log out option
     Then I am log out from my account
