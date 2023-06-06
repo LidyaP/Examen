@@ -45,10 +45,10 @@ class Home_page(Browser):
         except Exception as i:
             print(f"An error occurred while inserting the password: {str(i)}")
 
-    def insert_invalid_password(self):
+    def insert_invalid_password(self, password):
         try:
             user_password = self.chrome.find_element(*self.PASSWORD)
-            user_password.send_keys("alabalaportocala")
+            user_password.send_keys(password)
             sleep(1)
         except Exception as i:
             print(f"An error occurred while inserting the invalid password: {str(i)}")
@@ -66,12 +66,12 @@ class Home_page(Browser):
         assert self.chrome.current_url == account_url
         sleep(1)
 
-    def login_failed(self):  # Folosesc metoda switch_to.alert pentru a interacționa cu fereastra de alertă și a confirma sau a închide mesajul de eroare.
+    def login_failed(self, error_message):
         try:
             alerta = self.chrome.switch_to.alert
-            alerta_text = alerta.text  # ca sa scot textul din alerta
-            assert "Authentication Failed" in alerta_text
-            alerta.accept()   # accept alerta
+            alerta_text = alerta.text
+            assert error_message in alerta_text
+            alerta.accept()
         except NoAlertPresentException:
             assert False, "Expected alert not found"
         sleep(1)

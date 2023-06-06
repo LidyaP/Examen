@@ -45,7 +45,6 @@ class My_dashboard(Browser):
     MY_ACCOUNT_SETTINGS = (By.ID, "mfAccountProfileImg")
     LOG_OUT = (By.ID, "mfAccountMenuLogout")
 
-
     def i_see_the_offer(self):
         upgrade_offer = WebDriverWait(self.chrome, 10).until(EC.visibility_of_element_located(self.PROMO))
         assert upgrade_offer.is_displayed()
